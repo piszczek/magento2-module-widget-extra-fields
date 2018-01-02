@@ -66,7 +66,7 @@ class ImageFieldRenderer extends Template implements FormElementRenderer
     public function getImageUrl(): string
     {
         if ($this->element->getData('value')) {
-            return $this->getMediaUrl() . DIRECTORY_SEPARATOR . $this->element->getValue();
+            return $this->element->getValue();
         }
         return "";
     }
