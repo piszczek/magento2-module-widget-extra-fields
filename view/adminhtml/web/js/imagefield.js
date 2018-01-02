@@ -47,10 +47,20 @@ define([
 
         updateImage: function() {
             var newImagePath = this.getImagePathInput().val();
-            var newImageUrl = this.options.mediaUrl + '/' + newImagePath;
-            this.getLinkElement().attr('href', newImageUrl);
-            this.getImgElement().attr('src', newImageUrl);
-            this.getPreviewImageDiv().show();
+            if (newImagePath.indexOf('__directive') !== -1) {
+                try {
+                    var data = /__directive\/([^,]+)/.exec(newImagePath)[1];
+                    var link = '/media/' + Base64.idDecode(data).replace(/.*"([^"]+)".*/, '$1');
+                    this.getImagePathInput().val(link);
+                } catch (error) {
+                    console.log(error);
+                }
+                var newImageUrl = link;
+
+                this.getLinkElement().attr('href', newImageUrl);
+                this.getImgElement().attr('src', newImageUrl);
+                this.getPreviewImageDiv().show();
+            }
         },
 
         deleteImage: function() {
