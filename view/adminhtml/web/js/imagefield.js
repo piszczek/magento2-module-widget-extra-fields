@@ -17,7 +17,8 @@ define([
             imagePathInputSelector: null,
             imagePreviewDivSelector: null,
             imageDeleteButtonSelector: null,
-            mediaUrl: null
+            mediaUrl: null,
+            placeholderUrl: null
         },
 
         _create: function() {
@@ -40,6 +41,9 @@ define([
         getLinkElement: function() {
             return this.getPreviewImageDiv().find('a').first();
         },
+        getSpanElement: function() {
+            return this.getPreviewImageDiv().find('span').first();
+        },
 
         getImgElement: function() {
             return this.getPreviewImageDiv().find('img').first();
@@ -56,13 +60,15 @@ define([
                     console.log(error);
                 }
                 var newImageUrl = link;
-
+                this.getSpanElement().html(newImageUrl);
                 this.getLinkElement().attr('href', newImageUrl);
+                if (newImageUrl.indexOf('.pdf') > 0){
+                    newImageUrl = this.options.placeholderUrl;
+                }
                 this.getImgElement().attr('src', newImageUrl);
                 this.getPreviewImageDiv().show();
             }
         },
-
         deleteImage: function() {
             this.getImagePathInput().val('');
             this.getLinkElement().attr('href', '');

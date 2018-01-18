@@ -14,9 +14,14 @@ use Staempfli\WidgetExtraFields\Block\Adminhtml\Renderer\ImageFieldRenderer;
 
 class ImageField extends Template
 {
+
     public function prepareElementHtml(AbstractElement $element)
     {
         $fieldRenderer = $this->getLayout()->createBlock(ImageFieldRenderer::class);
+
+        $widgetType = $this->getData('widgetType');
+        $fieldRenderer->setData('widgetType', $widgetType ??'image');
+
         $element->setRenderer($fieldRenderer);
     }
 }
