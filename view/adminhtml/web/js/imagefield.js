@@ -53,7 +53,7 @@ define([
             var newImagePath = this.getImagePathInput().val();
             if (newImagePath.indexOf('__directive') !== -1) {
                 try {
-                    var data = /__directive\/([^,]+)/.exec(newImagePath)[1];
+                    var data = /__directive\/([^,\/]+)/.exec(newImagePath)[1];
                     var link = '/media/' + Base64.idDecode(data).replace(/.*"([^"]+)".*/, '$1');
                     this.getImagePathInput().val(link);
                 } catch (error) {
